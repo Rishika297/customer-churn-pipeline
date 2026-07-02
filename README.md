@@ -1,42 +1,38 @@
-# 🚀 Customer Churn Prediction Pipeline
+# Customer Churn Prediction Pipeline
 
-An end-to-end machine learning project that predicts whether a telecom customer is likely to churn. This project goes beyond just training a model—it includes feature engineering, experiment tracking, workflow automation, Docker support, and an interactive dashboard to explore predictions and model performance.
+An end-to-end machine learning project for predicting telecom customer churn. The project covers the complete ML workflow, including data preprocessing, feature engineering, model training, experiment tracking with MLflow, workflow automation using Airflow, containerization with Docker, and an interactive Streamlit dashboard.
 
----
+## Overview
 
-## ✨ What this project does
+This project demonstrates how a machine learning model can be developed and managed beyond a notebook. It includes:
 
-- 📊 Predicts customer churn using machine learning
-- 🧹 Cleans and preprocesses raw telecom customer data
-- ⚙️ Engineers additional features to improve model performance
-- 🤖 Trains and compares multiple ML models
-- 📈 Tracks experiments with MLflow
-- 🔄 Automates retraining using Airflow
-- 🖥️ Provides an interactive Streamlit dashboard
-- 🐳 Runs easily with Docker and Docker Compose
+- Data preprocessing and feature engineering
+- Training and evaluation of multiple machine learning models
+- Experiment tracking using MLflow
+- Automated retraining with Apache Airflow
+- Interactive visualization and prediction using Streamlit
+- Docker support for reproducible deployment
 
----
-
-## 🛠️ Tech Stack
+## Technology Stack
 
 - Python
-- Pandas & NumPy
+- Pandas
+- NumPy
 - Scikit-learn
 - Streamlit
 - MLflow
 - Apache Airflow
 - Docker
 - Poetry
-- Plotly & Matplotlib
+- Plotly
+- Matplotlib
 
----
-
-## 📂 Project Structure
+## Project Structure
 
 ```text
 customer-churn-pipeline/
 │
-├── app.py                     # Streamlit dashboard
+├── app.py                     # Streamlit application
 ├── backend/
 │   ├── feature_engineering.py
 │   ├── preprocessing.py
@@ -59,31 +55,35 @@ customer-churn-pipeline/
 └── README.md
 ```
 
----
+## Dataset
 
-## 📊 Dataset
+## Dataset
 
-The project works with the **Telco Customer Churn** dataset.
+This project uses the **Telco Customer Churn** dataset.
 
-A small sample dataset is included so the project runs out of the box.
+Download the dataset from Kaggle:
 
-For the complete dataset, download:
+https://www.kaggle.com/datasets/palashfendarkar/wa-fnusec-telcocustomerchurn
 
-**WA_Fn-UseC_-Telco-Customer-Churn.csv**
+After downloading, place the file
 
-and place it inside:
+```text
+WA_Fn-UseC_-Telco-Customer-Churn.csv
+```
+
+inside the `data/` directory:
 
 ```text
 data/
+└── WA_Fn-UseC_-Telco-Customer-Churn.csv
 ```
 
-No database setup required.
+The dataset is not included in this repository due to licensing and repository size considerations. :contentReference[oaicite:0]{index=0}
 
----
 
-## ⚡ Installation
+## Installation
 
-Clone the repository
+Clone the repository:
 
 ```bash
 git clone https://github.com/<your-username>/customer-churn-pipeline.git
@@ -91,95 +91,86 @@ git clone https://github.com/<your-username>/customer-churn-pipeline.git
 cd customer-churn-pipeline
 ```
 
-Install dependencies
+Install project dependencies:
 
 ```bash
 poetry install
 ```
 
-(Optional) Install Airflow support
+Install Airflow dependencies (optional):
 
 ```bash
 poetry install --extras airflow
 ```
 
----
+## Training
 
-## 🏋️ Train the Model
+Train the machine learning models:
 
 ```bash
 poetry run python backend/train.py
 ```
 
-This pipeline will:
+The training pipeline performs the following steps:
 
 - Load the dataset
-- Perform feature engineering
-- Preprocess the data
-- Train Logistic Regression and Random Forest
+- Apply preprocessing and feature engineering
+- Train Logistic Regression and Random Forest models
 - Compare model performance
-- Track experiments with MLflow
+- Log experiments with MLflow
 - Save the best-performing model
 
----
+## Running the Dashboard
 
-## 🎯 Run the Dashboard
+Launch the Streamlit application:
 
 ```bash
 poetry run streamlit run app.py
 ```
 
-Open the URL shown in the terminal (usually `http://localhost:8501`).
-
 The dashboard includes:
 
-- 🏠 Project Overview
-- 🔮 Customer Churn Prediction
-- 📈 Model Performance
-- 📊 Dataset Insights
-- 🧪 MLflow Experiments
-- 📉 Monitoring Dashboard
-- 🔄 Airflow Workflow
+- Project overview
+- Customer churn prediction
+- Model performance metrics
+- Dataset exploration
+- MLflow experiment tracking
+- Monitoring dashboard
+- Airflow workflow overview
 
----
+## MLflow
 
-## 📈 MLflow
-
-Start the MLflow UI
+Start the MLflow tracking server:
 
 ```bash
 poetry run mlflow ui --backend-store-uri mlflow --port 5000
 ```
 
-Visit
+Access the interface at:
 
 ```
 http://localhost:5000
 ```
 
-to explore experiment history.
+## Airflow
 
----
-
-## 🔄 Airflow
-
-The retraining DAG lives here:
+The retraining workflow is located at:
 
 ```text
 airflow/dags/churn_retraining_dag.py
 ```
 
-Workflow:
+Pipeline:
 
 ```text
 Load Data
-      ↓
+    ↓
 Preprocess
-      ↓
+    ↓
 Train
-      ↓
+    ↓
 Evaluate
-      ↓
+    ↓
 Save Model
 ```
 
@@ -191,55 +182,47 @@ poetry install --extras airflow
 poetry run airflow standalone
 ```
 
----
+## Docker
 
-## 🐳 Docker
-
-Run only the dashboard
+Run only the Streamlit application:
 
 ```bash
 docker compose up churn-dashboard
 ```
 
-Run everything
+Run all services:
 
 ```bash
 docker compose up --build
 ```
 
-Available services
-
 | Service | URL |
-|---------|-----|
+|----------|-----|
 | Streamlit | http://localhost:8501 |
 | MLflow | http://localhost:5000 |
 | Airflow | http://localhost:8080 |
 
----
+## Screenshots
 
-## 📸 Screenshots
+Add screenshots after running the project.
 
-> Add screenshots after running the project.
+- Home page
+- Prediction page
+- Model performance
+- MLflow experiments
+- Airflow workflow
 
-- Home
-- Prediction Page
-- Model Performance
-- MLflow Experiments
-- Airflow Workflow
+## Future Work
 
----
+Potential improvements include:
 
-## 🚀 Future Improvements
-
-- Add XGBoost and LightGBM
+- Adding XGBoost and LightGBM models
 - Hyperparameter tuning
 - Model drift monitoring
-- Unit tests
-- CI/CD with GitHub Actions
+- Unit testing
+- CI/CD using GitHub Actions
 - MLflow Model Registry
 
----
+## Motivation
 
-## 💡 Why I built this
-
-I wanted to build a project that demonstrates the complete machine learning workflow—from raw data to deployment—rather than just training a model in a notebook. This project helped me explore experiment tracking with MLflow, workflow automation with Airflow, containerization using Docker, and building an interactive dashboard with Streamlit.
+The goal of this project was to build a complete machine learning pipeline rather than a notebook-based model. It demonstrates how data preprocessing, model training, experiment tracking, workflow automation, and deployment can be integrated into a single reproducible application.

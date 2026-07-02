@@ -20,3 +20,5 @@ mlflow/*
 airflow/logs/
 airflow/*.db
 .vscode/
+data/*.csv
+!data/.gitkeep
