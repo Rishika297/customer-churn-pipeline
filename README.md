@@ -71,11 +71,11 @@ After downloading, place the file
 WA_Fn-UseC_-Telco-Customer-Churn.csv
 ```
 
-inside the `data/` directory:
+inside the `data/` directory as Telco-Churn.csv:
 
 ```text
 data/
-└── WA_Fn-UseC_-Telco-Customer-Churn.csv
+└── Telco-Churn.csv
 ```
 
 The dataset is not included in this repository due to licensing and repository size considerations. :contentReference[oaicite:0]{index=0}
