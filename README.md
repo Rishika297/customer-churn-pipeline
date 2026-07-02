@@ -1,42 +1,57 @@
-# Customer Churn Prediction Pipeline
+# 🚀 Customer Churn Prediction Pipeline
 
-A clean, portfolio-ready machine learning project that predicts whether a telecom customer is likely to churn. The project demonstrates preprocessing, feature engineering, model training, evaluation, MLflow experiment tracking, scheduled retraining with Airflow, Docker support, and a modern Streamlit dashboard.
+An end-to-end machine learning project that predicts whether a telecom customer is likely to churn. This project goes beyond just training a model—it includes feature engineering, experiment tracking, workflow automation, Docker support, and an interactive dashboard to explore predictions and model performance.
 
-## Features
+---
 
-- Local CSV dataset loading with Kaggle Telco churn support
-- Missing value handling, one-hot encoding, and numerical scaling
-- Feature engineering for tenure groups, average spend, service counts, contract indicators, and internet service indicators
-- Logistic Regression and Random Forest model comparison
-- Best model persistence with the fitted preprocessing pipeline
-- MLflow run tracking for parameters, metrics, and model artifacts
-- Streamlit dashboard for predictions, model performance, dataset overview, experiments, monitoring, and Airflow workflow visualization
-- Docker and Docker Compose setup
-- Lightweight Airflow DAG for scheduled retraining
+## ✨ What this project does
 
-## Tech Stack
+- 📊 Predicts customer churn using machine learning
+- 🧹 Cleans and preprocesses raw telecom customer data
+- ⚙️ Engineers additional features to improve model performance
+- 🤖 Trains and compares multiple ML models
+- 📈 Tracks experiments with MLflow
+- 🔄 Automates retraining using Airflow
+- 🖥️ Provides an interactive Streamlit dashboard
+- 🐳 Runs easily with Docker and Docker Compose
 
-Python, Pandas, NumPy, Scikit-learn, Streamlit, Apache Airflow, MLflow, Docker, Poetry, Matplotlib, and Plotly.
+---
 
-## Folder Structure
+## 🛠️ Tech Stack
+
+- Python
+- Pandas & NumPy
+- Scikit-learn
+- Streamlit
+- MLflow
+- Apache Airflow
+- Docker
+- Poetry
+- Plotly & Matplotlib
+
+---
+
+## 📂 Project Structure
 
 ```text
 customer-churn-pipeline/
-├── app.py
-├── data/
-│   └── telco_churn.csv
-├── models/
-├── artifacts/
-├── airflow/
-│   └── dags/
-│       └── churn_retraining_dag.py
+│
+├── app.py                     # Streamlit dashboard
 ├── backend/
-│   ├── preprocessing.py
 │   ├── feature_engineering.py
+│   ├── preprocessing.py
 │   ├── train.py
 │   ├── predict.py
 │   ├── evaluate.py
 │   └── utils.py
+│
+├── airflow/
+│   └── dags/
+│       └── churn_retraining_dag.py
+│
+├── data/
+├── models/
+├── artifacts/
 ├── mlflow/
 ├── Dockerfile
 ├── docker-compose.yml
@@ -44,136 +59,187 @@ customer-churn-pipeline/
 └── README.md
 ```
 
-## Dataset
+---
 
-The project includes a tiny starter CSV so the code can run immediately. For the full Kaggle dataset, download **WA_Fn-UseC_-Telco-Customer-Churn.csv** and place it anywhere under:
+## 📊 Dataset
+
+The project works with the **Telco Customer Churn** dataset.
+
+A small sample dataset is included so the project runs out of the box.
+
+For the complete dataset, download:
+
+**WA_Fn-UseC_-Telco-Customer-Churn.csv**
+
+and place it inside:
 
 ```text
 data/
 ```
 
-The loader searches recursively and prefers a Kaggle-style file matching `*Telco*Customer*Churn*.csv`. No database setup is required.
+No database setup required.
 
-## Installation
+---
+
+## ⚡ Installation
+
+Clone the repository
+
+```bash
+git clone https://github.com/<your-username>/customer-churn-pipeline.git
+
+cd customer-churn-pipeline
+```
+
+Install dependencies
 
 ```bash
 poetry install
 ```
 
-For Airflow support in the same local environment:
+(Optional) Install Airflow support
 
 ```bash
 poetry install --extras airflow
 ```
 
-## Train The Models
+---
+
+## 🏋️ Train the Model
 
 ```bash
 poetry run python backend/train.py
 ```
 
-This command:
+This pipeline will:
 
-- Loads the local churn CSV
-- Converts `TotalCharges` to numeric
-- Creates engineered features
-- Fits preprocessing with one-hot encoding and `StandardScaler`
-- Trains Logistic Regression and Random Forest
-- Logs MLflow runs
-- Saves the best model to `models/best_model.joblib`
-- Saves metrics and plots under `artifacts/`
+- Load the dataset
+- Perform feature engineering
+- Preprocess the data
+- Train Logistic Regression and Random Forest
+- Compare model performance
+- Track experiments with MLflow
+- Save the best-performing model
 
-## Run The Dashboard
+---
+
+## 🎯 Run the Dashboard
 
 ```bash
 poetry run streamlit run app.py
 ```
 
-Open the Streamlit URL shown in the terminal. The dashboard includes:
+Open the URL shown in the terminal (usually `http://localhost:8501`).
 
-- Home overview
-- Customer churn prediction form
-- Accuracy, precision, recall, F1-score, ROC-AUC, confusion matrix, ROC curve, and feature importance
-- Dataset profile and charts
-- MLflow experiment tracking page
-- Monitoring page for prediction volume, distribution, confidence, and last retraining time
-- Airflow pipeline visualization and manual retraining button
+The dashboard includes:
 
-## MLflow Tracking
+- 🏠 Project Overview
+- 🔮 Customer Churn Prediction
+- 📈 Model Performance
+- 📊 Dataset Insights
+- 🧪 MLflow Experiments
+- 📉 Monitoring Dashboard
+- 🔄 Airflow Workflow
 
-MLflow stores local experiment runs in:
+---
 
-```text
-mlflow/
-```
+## 📈 MLflow
 
-Start the MLflow UI with:
+Start the MLflow UI
 
 ```bash
 poetry run mlflow ui --backend-store-uri mlflow --port 5000
 ```
 
-Then visit `http://localhost:5000`.
+Visit
 
-## Airflow Workflow
+```
+http://localhost:5000
+```
 
-The DAG is located at:
+to explore experiment history.
+
+---
+
+## 🔄 Airflow
+
+The retraining DAG lives here:
 
 ```text
 airflow/dags/churn_retraining_dag.py
 ```
 
-It automates:
+Workflow:
 
-1. Load data
-2. Validate preprocessing
-3. Train model
-4. Evaluate model
-5. Save model
+```text
+Load Data
+      ↓
+Preprocess
+      ↓
+Train
+      ↓
+Evaluate
+      ↓
+Save Model
+```
 
-For a simple local Airflow run, install the optional dependency first:
+Run Airflow locally:
 
 ```bash
 poetry install --extras airflow
+
 poetry run airflow standalone
 ```
 
-## Docker
+---
 
-Build and run the Streamlit dashboard:
+## 🐳 Docker
+
+Run only the dashboard
 
 ```bash
 docker compose up churn-dashboard
 ```
 
-Run the dashboard, MLflow UI, and Airflow service:
+Run everything
 
 ```bash
 docker compose up --build
 ```
 
-Services:
+Available services
 
-- Streamlit: `http://localhost:8501`
-- MLflow: `http://localhost:5000`
-- Airflow: `http://localhost:8080`
+| Service | URL |
+|---------|-----|
+| Streamlit | http://localhost:8501 |
+| MLflow | http://localhost:5000 |
+| Airflow | http://localhost:8080 |
 
-## Dashboard Screenshots
+---
 
-Add screenshots here after running the app:
+## 📸 Screenshots
 
-```text
-docs/screenshots/home.png
-docs/screenshots/prediction.png
-docs/screenshots/model-performance.png
-docs/screenshots/experiments.png
-```
+> Add screenshots after running the project.
 
-## Future Improvements
+- Home
+- Prediction Page
+- Model Performance
+- MLflow Experiments
+- Airflow Workflow
 
-- Add XGBoost as a third candidate model
-- Add automated tests for feature engineering and prediction schemas
-- Add model drift checks for monthly charges and tenure
-- Add CI workflow for linting and training smoke tests
-- Register production model stages in MLflow Model Registry
+---
 
+## 🚀 Future Improvements
+
+- Add XGBoost and LightGBM
+- Hyperparameter tuning
+- Model drift monitoring
+- Unit tests
+- CI/CD with GitHub Actions
+- MLflow Model Registry
+
+---
+
+## 💡 Why I built this
+
+I wanted to build a project that demonstrates the complete machine learning workflow—from raw data to deployment—rather than just training a model in a notebook. This project helped me explore experiment tracking with MLflow, workflow automation with Airflow, containerization using Docker, and building an interactive dashboard with Streamlit.
