@@ -1,0 +1,38 @@
+services:
+  churn-dashboard:
+    build: .
+    container_name: churn-dashboard
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./data:/app/data
+      - ./artifacts:/app/artifacts
+      - ./models:/app/models
+      - ./mlflow:/app/mlflow
+    command: streamlit run app.py --server.address=0.0.0.0 --server.port=8501
+
+  mlflow:
+    build: .
+    container_name: churn-mlflow
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./mlflow:/app/mlflow
+    command: mlflow ui --backend-store-uri /app/mlflow --host 0.0.0.0 --port 5000
+
+  airflow:
+    build: .
+    container_name: churn-airflow
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./airflow/dags:/app/airflow/dags
+      - ./data:/app/data
+      - ./artifacts:/app/artifacts
+      - ./models:/app/models
+      - ./mlflow:/app/mlflow
+    environment:
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__CORE__DAGS_FOLDER: /app/airflow/dags
+    command: bash -c "airflow db migrate && airflow standalone"
+
