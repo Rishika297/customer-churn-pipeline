@@ -86,7 +86,7 @@ The dataset is not included in this repository due to licensing and repository s
 Clone the repository:
 
 ```bash
-git clone https://github.com/<your-username>/customer-churn-pipeline.git
+git clone https://github.com/Rishika297/customer-churn-pipeline.git
 
 cd customer-churn-pipeline
 ```
